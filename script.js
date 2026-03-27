@@ -1,64 +1,59 @@
-// ================= FIREBASE =================
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "COLE_AQUI",
-  authDomain: "COLE_AQUI",
-  projectId: "COLE_AQUI",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// ================= PRODUTOS =================
 let produtos = [
   {nome:"Geladeira",valor:3000,cota:300,img:"https://via.placeholder.com/200"},
   {nome:"Lua de Mel",valor:5000,cota:250,img:"https://via.placeholder.com/200"}
 ];
 
-// ================= LISTA =================
+// LISTAR PRODUTOS
 function renderProdutos(){
+  let div = document.getElementById("produtos");
+  if(!div) return;
 
-let div = document.getElementById("produtos");
-if(!div) return;
+  div.innerHTML = "";
 
-div.innerHTML = "";
-
-produtos.forEach((p,i)=>{
-  div.innerHTML += `
-  <div class="card">
-    <img src="${p.img}">
-    <h3>${p.nome}</h3>
-    <p>Cota: R$${p.cota}</p>
-    <button onclick="comprar(${i})">Comprar</button>
-  </div>
-  `;
-});
-
+  produtos.forEach((p,i)=>{
+    div.innerHTML += `
+    <div class="card">
+      <img src="${p.img}">
+      <h3>${p.nome}</h3>
+      <p>Cota: R$ ${p.cota}</p>
+      <button onclick="comprar(${i})">Comprar</button>
+    </div>`;
+  });
 }
 
-window.comprar = function(i){
+// COMPRAR
+function comprar(i){
   let qtd = prompt("Quantas cotas?");
+  if(!qtd) return;
+
   let total = qtd * produtos[i].cota;
 
-  localStorage.setItem("compra",JSON.stringify({
-    nome:produtos[i].nome,
+  localStorage.setItem("compra", JSON.stringify({
+    nome: produtos[i].nome,
     qtd,
     total
   }));
 
-  window.location = "pagamento.html";
+  window.location.href = "pagamento.html";
 }
 
-// ================= PAGAMENTO =================
-window.pagar = async function(){
+// RESUMO
+function resumo(){
+  let div = document.getElementById("resumo");
+  if(!div) return;
 
+  let compra = JSON.parse(localStorage.getItem("compra"));
+  if(!compra) return;
+
+  div.innerHTML = `
+    <p>${compra.nome}</p>
+    <p>${compra.qtd} cotas</p>
+    <p>Total: R$ ${compra.total}</p>
+  `;
+}
+
+// PAGAMENTO REAL
+async function pagar(){
   let nome = document.getElementById("nome").value;
   let compra = JSON.parse(localStorage.getItem("compra"));
 
@@ -67,36 +62,26 @@ window.pagar = async function(){
     return;
   }
 
-  // SALVA NO FIREBASE
-  await addDoc(collection(db, "pagamentos"), {
-    nome: nome,
-    item: compra.nome,
-    valor: compra.total,
-    data: new Date()
+  let res = await fetch("https://casamento-backend-f7e4.onrender.com/criar-pagamento", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      nome: nome,
+      item: compra.nome,
+      valor: compra.total
+    })
   });
 
-  // LINK MERCADO PAGO (SEU LINK AQUI)
-  window.open("https://link.mercadopago.com.br/presentescasanova", "_blank");
+  let data = await res.json();
 
-  alert("Obrigado pelo presente 💜");
-}
-
-// ================= LISTA DE PRESENTES =================
-async function carregarPagamentos(){
-
-  let div = document.getElementById("listaPagamentos");
-  if(!div) return;
-
-  const querySnapshot = await getDocs(collection(db, "pagamentos"));
-
-  div.innerHTML = "";
-
-  querySnapshot.forEach((doc) => {
-    let p = doc.data();
-    div.innerHTML += `<p>💖 ${p.nome} presenteou ${p.item}</p>`;
-  });
-
+  if(data.link){
+    window.location.href = data.link;
+  }else{
+    alert("Erro ao gerar pagamento");
+  }
 }
 
 renderProdutos();
-carregarPagamentos();
+resumo();
