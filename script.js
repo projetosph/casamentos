@@ -3,7 +3,7 @@ let produtos = [
   {nome:"Lua de Mel",valor:5000,cota:250,img:"https://via.placeholder.com/200"}
 ];
 
-// LISTAR PRODUTOS
+// ================= LISTAR PRODUTOS =================
 function renderProdutos(){
   let div = document.getElementById("produtos");
   if(!div) return;
@@ -21,10 +21,10 @@ function renderProdutos(){
   });
 }
 
-// COMPRAR
+// ================= COMPRAR =================
 function comprar(i){
-  let qtd = prompt("Quantas cotas?");
-  if(!qtd) return;
+  let qtd = prompt("Quantas cotas deseja?");
+  if(!qtd || qtd <= 0) return;
 
   let total = qtd * produtos[i].cota;
 
@@ -37,7 +37,7 @@ function comprar(i){
   window.location.href = "pagamento.html";
 }
 
-// RESUMO
+// ================= RESUMO =================
 function resumo(){
   let div = document.getElementById("resumo");
   if(!div) return;
@@ -46,14 +46,15 @@ function resumo(){
   if(!compra) return;
 
   div.innerHTML = `
-    <p>${compra.nome}</p>
+    <p><strong>${compra.nome}</strong></p>
     <p>${compra.qtd} cotas</p>
     <p>Total: R$ ${compra.total}</p>
   `;
 }
 
-// PAGAMENTO REAL
+// ================= PAGAMENTO REAL =================
 async function pagar(){
+
   let nome = document.getElementById("nome").value;
   let compra = JSON.parse(localStorage.getItem("compra"));
 
@@ -62,26 +63,39 @@ async function pagar(){
     return;
   }
 
-  let res = await fetch("https://casamento-backend-f7e4.onrender.com/criar-pagamento", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      nome: nome,
-      item: compra.nome,
-      valor: compra.total
-    })
-  });
+  if(!compra){
+    alert("Erro na compra");
+    return;
+  }
 
-  let data = await res.json();
+  try {
 
-  if(data.link){
-    window.location.href = data.link;
-  }else{
-    alert("Erro ao gerar pagamento");
+    let resposta = await fetch("https://casamento-backend-f7e4.onrender.com/criar-pagamento", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        titulo: compra.nome,
+        valor: compra.total,
+        nome: nome
+      })
+    });
+
+    let data = await resposta.json();
+
+    if(data.link){
+      window.location.href = data.link;
+    } else {
+      alert("Erro ao gerar pagamento");
+    }
+
+  } catch (erro){
+    alert("Erro ao conectar com servidor");
+    console.log(erro);
   }
 }
 
+// ================= INICIAR =================
 renderProdutos();
 resumo();
