@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Acesso Noivos</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<section class="pagamento-container">
+
+  <h2 class="nomes">ACESSO DOS NOIVOS</h2>
+
+  <input type="password" id="senha" placeholder="Senha" class="inputNome">
+
+  <button class="btnFinalizar" onclick="entrar()">
+    ENTRAR
+  </button>
+
+</section>
+
+<script>
+function entrar(){
+  const senha = document.getElementById("senha").value
+
+  if(senha === "0000"){
+    window.location = "painel.html"
+  } else {
+    alert("Senha incorreta")
+  }
+}
+</script>
+
+</body>
+</html>

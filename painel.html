@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Painel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <div class="logo">P & A</div>
+  <a href="index.html" class="btnHeader">Sair</a>
+</header>
+
+<section class="pagamento-container">
+
+  <h2 class="nomes">PAINEL DOS NOIVOS</h2>
+
+  <!-- ===== ADICIONAR PRESENTE ===== -->
+ <h3>Adicionar / Editar Presente</h3>
+
+<input id="nomeProduto" placeholder="Nome do presente" class="inputNome">
+<input id="valorProduto" placeholder="Valor total" class="inputNome">
+<input id="cotaProduto" placeholder="Valor da cota" class="inputNome">
+
+<input id="imagemProduto" placeholder="URL da imagem (opcional)" class="inputNome">
+
+<button class="btnFinalizar" onclick="salvarProduto()">
+  SALVAR
+</button>
+
+<input type="hidden" id="editIndex">
+
+<div id="listaProdutos"></div>
+
+  <!-- ===== PRESENÇAS ===== -->
+  <h3 style="margin-top:30px;">Lista de Presença</h3>
+  <div id="presencas"></div>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>

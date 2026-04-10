@@ -4,25 +4,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pagamento</title>
-<link rel="stylesheet" href="style.css">
-</head>
 
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
 <body>
 
-<header>
+<header class="header">
   <div class="logo">P & A</div>
+  <div style="font-size:12px;">🔒 Ambiente Seguro</div>
 </header>
 
-<section class="carrinho">
+<section class="pagamento-container">
 
-  <h2>Resumo</h2>
+  <h1 class="nomes">PAULO & ALANA</h1>
 
-  <input id="nome" placeholder="Seu nome">
-  <button onclick="pagar()">Finalizar Pagamento</button>
-  <div id="resumo"></div>
+  <p class="subtitulo">ESCOLHA UMA DAS FORMAS DE PAGAMENTO</p>
+
+  <input id="nome" placeholder="Seu nome" class="inputNome">
+
+  <div class="opcao" onclick="selecionar(this, 'pix')">
+  <span>PIX</span>
+  <img src="https://img.icons8.com/color/512/pix.png" class="iconePagamento">
+  </div>
+
+  <div class="opcao" onclick="selecionar(this, 'cartao')">
+  <span>Cartão de Crédito</span>
+  <img src="https://cdn-icons-png.flaticon.com/512/633/633611.png" class="iconePagamento">
+  </div>
+
+  <button onclick="finalizarPagamento()" class="btnFinalizar">
+    FINALIZAR COMPRA
+  </button>
+
+  <div id="areaPagamento"></div>
+
 </section>
 
-<script src="script.js"></script>
+<script>
+let metodo = "";
+
+function selecionar(elemento, tipo){
+
+  metodo = tipo;
+
+  // remove seleção anterior
+  document.querySelectorAll(".opcao").forEach(op => {
+    op.classList.remove("ativa");
+  });
+
+  // adiciona na clicada
+  elemento.classList.add("ativa");
+}
+
+function finalizarPagamento(){
+
+  let nome = document.getElementById("nome").value;
+
+  if(!nome){
+    alert("Digite seu nome");
+    return;
+  }
+
+  if(!metodo){
+    alert("Escolha forma de pagamento");
+    return;
+  }
+
+  let compra = JSON.parse(localStorage.getItem("compra"));
+
+  let area = document.getElementById("areaPagamento");
+
+  if(metodo === "pix"){
+
+    area.innerHTML = `
+      <h3>Pagamento via Pix</h3>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=VALOR_${compra.total}">
+      <p>Chave: PAULOALANA@PIX</p>
+    `;
+
+  } else {
+
+    fetch("https://casamento-backend-f7e4.onrender.com/criar-pagamento", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({
+        nome: nome,
+        valor: compra.total
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      window.open(data.link, "_blank");
+    });
+
+  }
+}
+</script>
 
 </body>
 </html>

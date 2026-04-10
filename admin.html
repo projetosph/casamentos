@@ -1,0 +1,14 @@
+<input type="password" id="senha" placeholder="Senha">
+<button onclick="entrar()">Entrar</button>
+
+<script>
+function entrar(){
+  const senha = document.getElementById("senha").value
+
+  if(senha === "casamento"){
+    window.location = "painel.html"
+  } else {
+    alert("Senha incorreta")
+  }
+}
+</script>

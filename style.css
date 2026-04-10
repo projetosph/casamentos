@@ -1,74 +1,445 @@
-body {
-  font-family: Arial;
-  margin: 0;
-  background: #f8f8f8;
+/* ================= RESET ================= */
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
+/* ================= GLOBAL ================= */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background:
+    radial-gradient(circle at top left, #efe9f5, transparent 40%),
+    radial-gradient(circle at bottom right, #e6f3ea, transparent 40%),
+    #f8f8f8;
+}
+
+/* ================= HEADER ================= */
 header {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  border-bottom:1px solid #eee;
+  background:white;
 }
 
 .logo {
-  font-size: 24px;
-  color: #cb89b7;
-  font-weight: bold;
+  font-size:18px;
+  letter-spacing:3px;
 }
 
+.btnHeader {
+  border:1px solid #ccc;
+  padding:8px 15px;
+  text-decoration:none;
+  color:#333;
+  font-size:12px;
+  transition:0.3s;
+}
+
+.btnHeader:hover {
+  background:#2f3e3a;
+  color:white;
+}
+
+/* ================= HERO ================= */
 .hero {
-  text-align: center;
-  padding: 60px 20px;
+  text-align:center;
+  padding:80px 20px 40px;
 }
 
+.hero h1 {
+  font-size:34px;
+  letter-spacing:4px;
+  margin-bottom:10px;
+}
+
+.hero p {
+  color:#777;
+  font-size:14px;
+}
+
+.subHero {
+  font-size:14px;
+  letter-spacing:3px;
+  color:#777;
+  margin-top:10px;
+}
+
+.contador {
+  margin-top:15px;
+  font-size:16px;
+}
+
+/* ================= GRID HOME ================= */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
-  padding: 20px;
+  display:grid;
+  gap:25px;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  max-width:1100px;   /* controla largura */
+  margin:40px auto;   /* centraliza */
+  padding:0 20px;     /* respiro lateral */
 }
 
+/* ================= CARDS ================= */
 .box {
-  background: white;
-  padding: 20px;
-  border-radius: 20px;
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  border:1px solid #eee;
+  transition:0.3s;
 }
 
+.box:hover {
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.destaque {
+  border:1px solid #2f3e3a;
+}
+
+.card h3 {
+  font-size:14px;
+  letter-spacing:2px;
+  margin-bottom:15px;
+  font-weight:500;
+}
+
+.card iframe {
+  margin-top:10px;
+  border-radius:8px;
+  flex-grow:1;
+}
+
+.card textarea {
+  margin-top:10px;
+  flex-grow:1;
+}
+
+/* ================= BOTÕES ================= */
 .btn {
-  background: #abd563;
-  padding: 10px;
-  display: inline-block;
-  text-decoration: none;
-  color: black;
-  border-radius: 8px;
+  display:inline-block;
+  margin-top:15px;
+  padding:10px 20px;
+  border:1px solid #ccc;
+  text-decoration:none;
+  font-size:12px;
+  letter-spacing:2px;
+  color:#333;
+  transition:0.3s;
 }
 
+.btn:hover {
+  background:#2f3e3a;
+  color:white;
+}
+
+/* ================= INPUT ================= */
+textarea {
+  width:100%;
+  height:100px;
+  border:1px solid #ddd;
+  border-radius:0px;
+  padding:10px;
+}
+
+.inputNome {
+  width:100%;
+  padding:12px;
+  margin-bottom:20px;
+  border:1px solid #ddd;
+  border-radius:5px;
+}
+
+/* ================= IFRAME ================= */
+iframe {
+  width:100%;
+  height:200px;
+  border:none;
+  border-radius:8px;
+}
+
+/* ================= PAGAMENTO ================= */
+.pagamento-container {
+  max-width:500px;
+  margin:auto;
+  padding:40px 20px;
+  text-align:center;
+}
+
+.nomes {
+  font-size:26px;
+  letter-spacing:4px;
+  margin-bottom:20px;
+}
+
+.subtitulo {
+  font-size:12px;
+  letter-spacing:2px;
+  color:#777;
+  margin-bottom:30px;
+}
+
+/* ================= OPÇÕES PAGAMENTO ================= */
+.opcao {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid #ddd;
+  padding:15px;
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.opcao:hover {
+  border-color:#2f3e3a;
+}
+
+.opcao span {
+  font-size:14px;
+}
+
+/* Estado normal */
+.opcao .iconePagamento {
+  opacity:0.7;
+  transform:scale(0.95);
+  transition:0.2s;
+}
+
+/* Ativo */
+.opcao.ativa {
+  border:2px solid #2f3e3a;
+  background:#f9f9f9;
+}
+
+.opcao.ativa .iconePagamento {
+  opacity:1;
+  transform:scale(1);
+}
+
+/* Ícone */
+.iconePagamento {
+  width:26px;
+  height:26px;
+  object-fit:contain;
+}
+
+/* ================= BOTÃO FINAL ================= */
+.btnFinalizar {
+  width:100%;
+  padding:15px;
+  background:#2f3e3a;
+  color:white;
+  border:none;
+  margin-top:20px;
+  cursor:pointer;
+  font-size:14px;
+  transition:0.3s;
+}
+
+.btnFinalizar:hover {
+  background:black;
+}
+
+/* ================= ÁREA PAGAMENTO ================= */
+#areaPagamento {
+  margin-top:30px;
+}
+
+/* ================= PRODUTOS ================= */
 .produtos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 20px;
-  padding: 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+  padding:30px;
 }
 
 .card {
-  background: white;
-  padding: 15px;
-  border-radius: 20px;
-  text-align: center;
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #eee;
+  margin-top:15px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  height:100%;
+  min-height:260px;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.05);
 }
 
 .card img {
-  width: 100%;
+  width:100%;
+  border-radius:10px;
+  margin-bottom:10px;
 }
 
-.carrinho {
-  padding: 20px;
+/* ================= PROGRESSO ================= */
+.progress {
+  height:8px;
+  background:#eee;
+  border-radius:10px;
+  margin:10px 0;
+  overflow:hidden;
 }
 
-button {
-  padding: 10px;
-  background: #abd563;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.progress div {
+  height:100%;
+  background:#2f3e3a;
+  width:0%;
+}
+
+/* ================= TEXTO ================= */
+small {
+  color:#777;
+}
+
+/* ================= BOTÕES PRODUTOS ================= */
+.card button {
+  background:#2f3e3a;
+  color:white;
+  border:none;
+  padding:10px;
+  margin-top:10px;
+  cursor:pointer;
+  width:100%;
+}
+
+.card button:disabled {
+  background:#ccc;
+  cursor:not-allowed;
+}
+
+/* ================= TÍTULOS PRESENTES ================= */
+.tituloPresentes {
+  text-align:center;
+  margin-top:30px;
+  font-size:22px;
+  letter-spacing:3px;
+  font-weight:600;
+}
+
+.subtituloPresentes {
+  text-align:center;
+  font-size:13px;
+  color:#777;
+  margin-bottom:30px;
+}
+
+/* ================= VERSÍCULOS ================= */
+.versiculos {
+  width:100%;
+  overflow:hidden;
+  background:white;
+  border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
+  padding:10px 0;
+  margin-bottom:20px;
+}
+
+.versiculos-track {
+  display:flex;
+  gap:60px;
+  width:max-content;
+  animation:scrollTexto 25s linear infinite;
+}
+
+.versiculos span {
+  white-space:nowrap;
+  font-size:13px;
+  color:#666;
+  letter-spacing:1px;
+}
+
+@keyframes scrollTexto {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ================= RESPONSIVO ================= */
+@media(max-width:1024px){
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width:600px){
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding:50px 10px;
+  }
+
+  .hero h1 {
+    font-size:26px;
+  }
+
+  .grid,
+  .produtos {
+    padding:15px;
+  }
+
+}
+
+.linhaDecorativa {
+  width:60px;
+  height:2px;
+  background:#2f3e3a;
+  margin:15px auto;
+  opacity:0.3;
+}
+#listaPresenca {
+  margin-top:20px;
+  text-align:left;
+}
+
+#listaPresenca div {
+  background:#fff;
+  padding:10px;
+  border:1px solid #eee;
+  border-radius:6px;
+  margin-top:8px;
+}
+
+.btnAdmin img {
+  width:28px;
+  margin-left:10px;
+  opacity:0.7;
+  transition:0.3s;
+}
+
+.btnAdmin img:hover {
+  opacity:1;
+  transform:scale(1.1);
+}
+
+#listaProdutos button {
+  margin-top:8px;
+  margin-right:5px;
+  padding:6px 10px;
+  border:none;
+  cursor:pointer;
+  font-size:12px;
+}
+
+#listaProdutos button:first-of-type {
+  background:#2f3e3a;
+  color:white;
+}
+
+#listaProdutos button:last-of-type {
+  background:#ccc;
 }

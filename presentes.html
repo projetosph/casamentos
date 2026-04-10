@@ -3,21 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Presentes</title>
+<title>Lista de Presentes</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header>
+<header class="header">
   <div class="logo">P & A</div>
+  <a href="index.html" class="btnHeader">Início</a>
 </header>
 
-<h2 style="text-align:center">Escolha um presente</h2>
+<!-- FEED -->
+<div class="versiculos">
+  <div class="versiculos-track">
+    <span>Colossenses 3:14: "Acima de tudo, porém, revistam-se do amor, que é o elo perfeito."</span>
+    <span>Mateus 19:6: "Assim, eles já não são dois, mas sim uma só carne. Portanto, o que Deus uniu, ninguém separe."</span>
+
+    <!-- duplicado para loop infinito suave -->
+    <span>Colossenses 3:14: "Acima de tudo, porém, revistam-se do amor, que é o elo perfeito."</span>
+    <span>Mateus 19:6: "Assim, eles já não são dois, mas sim uma só carne. Portanto, o que Deus uniu, ninguém separe."</span>
+  </div>
+</div>
+
+<h2 class="tituloPresentes">LISTA DE PRESENTES</h2>
+<p class="subtituloPresentes">Escolha algo para nos abençoar!</p>
 
 <section class="produtos" id="produtos"></section>
-
+<div class="produtos" id="listaPresentes"></div>
 <script src="script.js"></script>
-
 </body>
 </html>

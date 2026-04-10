@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmação de Presença</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <div class="logo">P & A</div>
+  <a href="index.html" class="btnHeader">Voltar</a>
+</header>
+
+<section class="pagamento-container">
+
+  <h1 class="nomes">PAULO & ALANA</h1>
+  <div class="linhaDecorativa"></div>
+
+  <p class="subtitulo">CONFIRMAÇÃO DE PRESENÇA</p>
+
+  <input type="text" id="nome" placeholder="Seu nome completo" class="inputNome">
+
+  <input type="number" id="quantidade" placeholder="Quantidade de pessoas" class="inputNome">
+
+  <textarea id="mensagem" placeholder="Deixe uma mensagem (opcional)"></textarea>
+
+  <button class="btnFinalizar" onclick="confirmarPresenca()">
+    CONFIRMAR PRESENÇA
+  </button>
+
+  <div id="listaPresenca"></div>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>
